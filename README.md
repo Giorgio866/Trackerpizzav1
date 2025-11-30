@@ -1,3 +1,7 @@
+[![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://raw.githubusercontent.com/Giorgio866/Trackerpizzav1/main/Trackerpizzav1.yaml)
+
+
+
 # Trackerpizzav1
 Automazione homeassistant
 Questo Blueprint unifica in un'unica automazione tutta la gestione delle consegne, includendo:
