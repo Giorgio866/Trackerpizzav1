@@ -1,109 +1,99 @@
 blueprint:
   name: "Trackerpizza"
   description: >
-    Unifica il monitoraggio consegne, la gestione automatica del GPS (Alta Precisione)
-    e gli avvisi di rientro in sede.
+    Gestione consegne, GPS automatico e notifiche.
   domain: automation
   input:
-    # --- SEZIONE 1: DISPOSITIVI E ZONE ---
+    # --- DISPOSITIVI ---
     panda_tracker:
-      name: 1. Tracker GPS Panda
-      description: "Seleziona il dispositivo che traccia la posizione (es. device_tracker.panda)"
+      name: "Seleziona il Tracker GPS (es. device_tracker.panda)"
+      description: "Il dispositivo che traccia la posizione dell'auto."
       selector:
         entity:
           domain: device_tracker
     mobile_app_notify:
-      name: 2. Notifica App (Per attivare GPS)
-      description: "Seleziona il servizio di notifica del telefono in auto (es. notify.mobile_app_panda). Serve per accendere/spegnere il GPS Alta Precisione."
+      name: "Seleziona Notifica App (es. notify.mobile_app...)"
+      description: "Serve per inviare il comando di accensione GPS al telefono."
       selector:
         text:
     base_zone:
-      name: 3. Zona Base (Pizzeria)
-      description: "Seleziona la zona della pizzeria (es. zone.pizzeria)"
+      name: "Seleziona la Zona Pizzeria"
+      description: "La zona da cui partono le consegne."
       selector:
         entity:
           domain: zone
 
-    # --- SEZIONE 2: NOTIFICHE ---
+    # --- NOTIFICHE ---
     alexa_targets:
-      name: 4. Dispositivi Alexa
-      description: "Seleziona gli Echo che devono parlare (es. notify.echo_show...)"
-      default: 
-        - notify.echo_show_di_giorgia_annuncio
-        - notify.echo_show_di_giorgia_parla
+      name: "Seleziona i dispositivi Alexa"
+      description: "Scegli su quali dispositivi Echo riprodurre gli annunci."
+      default: []
       selector:
         entity:
           domain: notify
           multiple: true
     telegram_chat_id:
-      name: 5. Telegram Chat ID
-      description: "Inserisci il tuo Chat ID numerico (es. 341280357)"
+      name: "Scrivi qui il Chat ID Telegram"
+      description: "Il numero identificativo della chat (es. 12345678)."
       default: ""
       selector:
         text:
 
-    # --- SEZIONE 3: HELPER OBBLIGATORI (Date e Orari) ---
+    # --- HELPER ORARI (Date e Ore) ---
     helper_departure_time:
-      name: 6. Helper Orario Partenza
-      description: "Seleziona l'entità: input_datetime.panda_orario_partenza"
+      name: "Seleziona: input_datetime.panda_orario_partenza"
       selector:
         entity:
           domain: input_datetime
     helper_arrival_time:
-      name: 7. Helper Orario Arrivo
-      description: "Seleziona l'entità: input_datetime.panda_orario_arrivo"
+      name: "Seleziona: input_datetime.panda_orario_arrivo"
       selector:
         entity:
           domain: input_datetime
     helper_travel_minutes:
-      name: 8. Helper Minuti Viaggio
-      description: "Seleziona l'entità: input_number.panda_tempo_viaggio_minuti"
+      name: "Seleziona: input_number.panda_tempo_viaggio_minuti"
       selector:
         entity:
           domain: input_number
     helper_in_delivery:
-      name: 9. Helper In Consegna
-      description: "Seleziona l'entità: input_boolean.panda_in_consegna"
+      name: "Seleziona: input_boolean.panda_in_consegna"
       selector:
         entity:
           domain: input_boolean
 
-    # --- SEZIONE 4: HELPER OBBLIGATORI (Contatori) ---
+    # --- HELPER CONTATORI ---
     counter_daily:
-      name: 10. Contatore Giornaliero
-      description: "Seleziona l'entità: counter.contatore_consegne_panda"
+      name: "Seleziona: counter.contatore_consegne_panda"
+      description: "Contatore giornaliero."
       selector:
         entity:
           domain: counter
     counter_weekly:
-      name: 11. Contatore Settimanale
-      description: "Seleziona l'entità: counter.panda_consegne_settimanali"
+      name: "Seleziona: counter.panda_consegne_settimanali"
+      description: "Contatore settimanale."
       selector:
         entity:
           domain: counter
     counter_partial:
-      name: 12. Contatore Parziale (Per Alexa)
-      description: "Seleziona l'entità: counter.panda_consegne_parziali"
+      name: "Seleziona: counter.panda_consegne_parziali"
+      description: "Contatore parziale per gli annunci vocali."
       selector:
         entity:
           domain: counter
 
-    # --- SEZIONE 5: ORARI DI LAVORO ---
+    # --- CONFIGURAZIONE ORARI ---
     time_start_shift:
-      name: Orario Inizio Turno
-      description: "Quando azzerare i contatori e attivare il GPS (Default: 18:00)"
+      name: "Orario Inizio Turno (Reset e GPS ON)"
       default: "18:00:00"
       selector:
         time:
     time_end_shift:
-      name: Orario Fine Turno
-      description: "Quando spegnere il GPS e mandare il report (Default: 23:30)"
+      name: "Orario Fine Turno (Report e GPS OFF)"
       default: "23:30:00"
       selector:
         time:
     time_weekly_report:
-      name: Orario Report Domenicale
-      description: "Orario invio report settimanale la Domenica (Default: 23:35)"
+      name: "Orario Report Domenicale"
       default: "23:35:00"
       selector:
         time:
